@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardSubtitle, CardBody, CardImg, CardTitle, CardText, ListGroup, ListGroupItem} from 'reactstrap';
+import { Card, CardSubtitle, CardBody, CardImg, CardTitle, CardText, ListGroup, ListGroupItem } from 'reactstrap';
 
 class DishDetail extends Component {
 
@@ -10,7 +10,7 @@ class DishDetail extends Component {
 			return (
 				<li className="comment mb-4" key={id}>
 					<p className="mb-1">{comment}</p>
-					<small><i>--{author}</i> - {date}</small>
+					<small><i>--{author}</i> - {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(date)))}</small>
 				</li>
 			)
 		}) : <div />;
@@ -40,18 +40,20 @@ class DishDetail extends Component {
 		}
 
 		return (
-			<div className="row">
-				{/* Shows the reactstrap card with selected dish image and name */}
-				<div className="col-12 col-md-5 m-1">
-					{this.renderDish()}
-				</div>
-				
-				{/* Shows the comments of the selected dish */}
-				<div className="col-12 col-md-5 m-1">
-					<h4 className="mb-2">Comments</h4>
-					<ListGroup>
-                        <ListGroupItem>{this.renderComments()}</ListGroupItem> 
-                    </ListGroup>
+			<div className='container'>
+				<div className="row">
+					{/* Shows the reactstrap card with selected dish image and name */}
+					<div className="col-12 col-md-5 m-1">
+						{this.renderDish()}
+					</div>
+
+					{/* Shows the comments of the selected dish */}
+					<div className="col-12 col-md-5 m-1">
+						<h4 className="mb-2">Comments</h4>
+						<ListGroup>
+							<ListGroupItem>{this.renderComments()}</ListGroupItem>
+						</ListGroup>
+					</div>
 				</div>
 			</div>
 		);
