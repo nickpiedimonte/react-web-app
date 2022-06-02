@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardSubtitle, CardBody, CardImg, CardTitle, CardText, ListGroup, ListGroupItem } from 'reactstrap';
 
-class DishDetail extends Component {
 
-	renderComments() {
+
+	function RenderComments({comments}) {
 		// Destructuring the props for easy access of object.
 		const { dish } = this.props;
 		return dish.comments ? dish.comments.map(({ id, rating, comment, author, date }) => {
@@ -16,10 +16,11 @@ class DishDetail extends Component {
 		}) : <div />;
 	};
 
-	renderDish() {
+	function RenderDish() {
 		// Destructuring the props for easy access of object.
 		const { dish } = this.props;
 		return (
+			<div className='col-12 col-md-5 m-1'>
 			<Card>
 				<CardImg alt={dish.name} src={dish.image} top width="100%" />
 				<CardBody>
@@ -28,10 +29,12 @@ class DishDetail extends Component {
 					<CardSubtitle> {dish.price} </CardSubtitle>
 				</CardBody>
 			</Card>
+			</div>
 		);
 	}
 
-	render() {
+	const DishDetail = (props) => {
+
 		// Destructuring the props for easy access of object.
 		const { dish } = this.props;
 
@@ -44,20 +47,19 @@ class DishDetail extends Component {
 				<div className="row">
 					{/* Shows the reactstrap card with selected dish image and name */}
 					<div className="col-12 col-md-5 m-1">
-						{this.renderDish()}
+						<RenderDish dish={props.dish} />
 					</div>
 
 					{/* Shows the comments of the selected dish */}
 					<div className="col-12 col-md-5 m-1">
 						<h4 className="mb-2">Comments</h4>
 						<ListGroup>
-							<ListGroupItem>{this.renderComments()}</ListGroupItem>
+							<ListGroupItem><RenderComments comments={props.dish.comments} /></ListGroupItem>
 						</ListGroup>
 					</div>
 				</div>
 			</div>
 		);
 	}
-}
 
 export default DishDetail;
